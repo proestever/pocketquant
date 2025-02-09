@@ -235,10 +235,46 @@
     .output:hover {
       background-color: #131827;
     }
-    /* Responsive behavior */
+    /* Responsive behavior for desktop (default) is maintained */
+    
+    /* Mobile-Specific Overrides */
     @media (max-width: 768px) {
+      /* Upper section becomes a single column */
       .upper-section {
         flex-direction: column;
+      }
+      /* Assets and Deployment cards become full width */
+      .assets-column, .deployment-column {
+        width: 100%;
+      }
+      /* Adjust Price Cards to fill more width on mobile */
+      .price-card {
+        width: 90%;
+        margin: 0 auto;
+      }
+      /* For price movement (square) blocks, set width to 90% and adjust height automatically */
+      .price-movement-card {
+        width: 90%;
+        height: auto;
+        padding: 15px;
+      }
+      /* Increase font sizes slightly for easier mobile reading */
+      h1 {
+        font-size: 2.4em;
+      }
+      h2 {
+        font-size: 1.8em;
+      }
+      h3 {
+        font-size: 1.3em;
+      }
+      /* Reduce gaps for a more compact mobile layout */
+      .price-cards, .price-movement-cards, .upper-section {
+        gap: 10px;
+      }
+      /* Slider and output containers adjustments */
+      .slider-container, .output, .card {
+        padding: 10px;
       }
     }
   </style>
@@ -528,7 +564,7 @@
     // Function to fetch real-time token prices and liquidity from Dexscreener
     function fetchDexscreenerPrices() {
       const tokens = {
-        ETH: "0x02dcdd04e3f455d838cd1249292c58f3b79e3c3c", // New address for ETH
+        ETH: "0x02dcdd04e3f455d838cd1249292c58f3b79e3c3c", // New ETH contract address
         PLS: "0xA1077a294dDE1B09bB078844df40758a5D0f9a27",
         PLSX: "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
         HEX: "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
@@ -537,7 +573,6 @@
       
       Object.keys(tokens).forEach(token => {
         const url = `https://api.dexscreener.com/latest/dex/tokens/${tokens[token]}`;
-        
         fetch(url)
           .then(res => res.json())
           .then(data => {
@@ -549,13 +584,12 @@
               if (token === "ETH") {
                 marketPriceETH = priceFloat;
                 document.getElementById('ethMarketPrice').innerText = marketPriceETH.toFixed(2);
-                const liquidityUsd = pairData.liquidity && pairData.liquidity.usd
+                const liquidityUsd = pairData.liquidity && pairData.liquidity.usd 
                   ? parseFloat(pairData.liquidity.usd)
                   : 0;
                 document.getElementById('ethLiquidity').innerText = liquidityUsd
                   ? liquidityUsd.toLocaleString(undefined, { maximumFractionDigits: 2 })
                   : "N/A";
-                // Update SAC WALLET value based on fetched ETH price
                 var sacWalletValue = marketPriceETH * 171000;
                 document.getElementById('sacWalletValue').innerText = sacWalletValue.toLocaleString(undefined, { maximumFractionDigits: 2 });
               } else {
@@ -569,7 +603,7 @@
                 } else if (token === "INC") {
                   marketPriceINC = priceFloat;
                 }
-                const liquidityUsd = pairData.liquidity && pairData.liquidity.usd
+                const liquidityUsd = pairData.liquidity && pairData.liquidity.usd 
                   ? parseFloat(pairData.liquidity.usd)
                   : 0;
                 document.getElementById(`${token.toLowerCase()}Liquidity`).innerText = liquidityUsd
