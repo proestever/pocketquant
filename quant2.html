@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Responsive meta tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZOOMER POCKET QUANT</title>
+  <style>
+    /* Base Styles */
+    body {
+      font-family: 'Satoshi', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #030711;
+      color: #ffffff;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+    }
+    h2 {
+      color: #ffffff;
+      text-align: center;
+      margin-top: 20px;
+    }
+    /* Ticker Logo Style */
+    .ticker-logo {
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+    /* Market Prices Section */
+    .market-prices {
+      background-color: #020204;
+      border: 1px solid #1d283a;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .market-prices h2 {
+      margin-bottom: 20px;
+    }
+    .market-prices p {
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+    /* Dashboard container for side‑by‑side layout */
+    .dashboard-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    /* Section containers */
+    .calculator-container,
+    .lp-calculator-container {
+      background-color: #020204;
+      border: 1px solid #1d283a;
+      border-radius: 8px;
+      padding: 20px;
+      flex: 1;
+      min-width: 300px;
+    }
+    /* Section Header */
+    .section-header {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+      border-bottom: 1px solid #1d283a;
+      padding-bottom: 10px;
+    }
+    /* Input and Slider Groups */
+    .slider-container {
+      background-color: #020204;
+      border: 1px solid #1d283a;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .value-display {
+      background-color: #020204;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: normal;
+    }
+    input[type="range"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #1d283a;
+      border-radius: 4px;
+      background-color: #030711;
+      color: #ffffff;
+      font-size: 1em;
+      margin: 10px 0;
+    }
+    /* Output styling */
+    .output {
+      font-size: 1.2em;
+      text-align: center;
+      padding: 15px;
+      background-color: #020204;
+      border: 1px solid #1d283a;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    /* Responsive behavior */
+    @media (max-width: 768px) {
+      .dashboard-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ZOOMER POCKET QUANT Dashboard</h1>
+    
+    <!-- Market Prices Section -->
+    <div class="market-prices">
+      <h2>Current Market Prices</h2>
+      <p>
+        <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edd1e9aa195320a330b7_pulselogo%20trimmed.png" alt="PLS Logo" class="ticker-logo" />
+        PLS: $<span id="plsMarketPrice">Loading...</span>
+      </p>
+      <p>
+        <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee1d2d83a860ecc432c0_PulseX_X.svg" alt="PLSX Logo" class="ticker-logo" />
+        PLSX: $<span id="plsxMarketPrice">Loading...</span>
+      </p>
+      <p>
+        <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee842d83a860ecc48477_HEXagon.svg" alt="HEX Logo" class="ticker-logo" />
+        HEX: $<span id="hexMarketPrice">Loading...</span>
+      </p>
+      <p>
+        <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edbc6c0cce17d1a68ce1_INC%20PNG%20VECT-p-1600.png" alt="INC Logo" class="ticker-logo" />
+        INC: $<span id="incMarketPrice">Loading...</span>
+      </p>
+    </div>
+    
+    <!-- Dashboard: Side‑by‑side Calculators -->
+    <div class="dashboard-container">
+      <!-- Deployment Calculator Section -->
+      <div class="calculator-container">
+        <div class="section-header">Deployment Calculator</div>
+        <!-- ETH Price Slider with ETH Logo -->
+        <div class="slider-container">
+          <label for="ethPrice">
+            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee510e939dfa15c662f7_3287b3-ethereum-eth.svg" alt="ETH Logo" class="ticker-logo" />
+            ETH Price ($):
+            <span id="ethPriceDisplay" class="value-display">4000</span>
+          </label>
+          <input type="range" id="ethPrice" min="2000" max="8000" step="50" value="4000" oninput="calculateDeployment()">
+        </div>
+        <!-- On-Chain ETH Deploy Percentage Slider -->
+        <div class="slider-container">
+          <label for="onChainEthPercent">
+            On-Chain ETH (4,731 ETH) Deploy (%):
+            <span id="onChainEthPercentDisplay" class="value-display">100</span>%
+          </label>
+          <input type="range" id="onChainEthPercent" min="0" max="100" step="1" value="100" oninput="calculateDeployment()">
+        </div>
+        <!-- Richard's Sac Bag Deploy Percentage Slider -->
+        <div class="slider-container">
+          <label for="richardSacPercent">
+            Richard's Sac Bag (171,000 ETH) Deploy (%):
+            <span id="richardSacPercentDisplay" class="value-display">100</span>%
+          </label>
+          <input type="range" id="richardSacPercent" min="0" max="100" step="1" value="100" oninput="calculateDeployment()">
+        </div>
+        <!-- Stables On-Chain Deployed Percentage Slider -->
+        <div class="slider-container">
+          <label for="stablesPercent">
+            Stables On-Chain Deployed (21.5M $) (%):
+            <span id="stablesPercentDisplay" class="value-display">100</span>%
+          </label>
+          <input type="range" id="stablesPercent" min="0" max="100" step="1" value="100" oninput="calculateDeployment()">
+        </div>
+        <!-- Total Money Deployed Output -->
+        <div class="output">
+          <strong>Total Money Deployed into PLS: $<span id="totalDeployment"></span></strong>
+        </div>
+      </div>
+      
+      <!-- Liquidity Pool Price Movement Calculator Section -->
+      <div class="lp-calculator-container">
+        <div class="section-header">Liquidity Pool Price Movement Calculator</div>
+        <!-- Notice: Using fetched market prices for all tokens -->
+        <div class="slider-container">
+          <p><strong>Using fetched market prices for all tokens</strong></p>
+        </div>
+        <!-- Display of Total Money Deployed Used for LP Calculation -->
+        <div class="slider-container">
+          <p>
+            <strong>Total Money Deployed Used for LP Calculation:</strong> $<span id="lpDollarAmountDisplay"></span>
+          </p>
+        </div>
+        <!-- Price Movement Output -->
+        <div class="output">
+          <p><strong>Price Movement on Buy:</strong></p>
+          <p>
+            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edd1e9aa195320a330b7_pulselogo%20trimmed.png" alt="PLS Logo" class="ticker-logo" />
+            PLS: <span id="plsMove">0</span>% move, New Price: $<span id="plsNewPrice">0</span>
+          </p>
+          <p>
+            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee1d2d83a860ecc432c0_PulseX_X.svg" alt="PLSX Logo" class="ticker-logo" />
+            PLSX: <span id="plsxMove">0</span>% move, New Price: $<span id="plsxNewPrice">0</span>
+          </p>
+          <p>
+            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee842d83a860ecc48477_HEXagon.svg" alt="HEX Logo" class="ticker-logo" />
+            HEX: <span id="hexMove">0</span>% move, New Price: $<span id="hexNewPrice">0</span>
+          </p>
+          <p>
+            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edbc6c0cce17d1a68ce1_INC%20PNG%20VECT-p-1600.png" alt="INC Logo" class="ticker-logo" />
+            INC: <span id="incMove">0</span>% move, New Price: $<span id="incNewPrice">0</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Global variable to hold the deployment value
+    let globalTotalDeployment = 0;
+    
+    // Global variables to store the fetched market prices
+    let marketPricePLS = 0,
+        marketPricePLSX = 0,
+        marketPriceHEX = 0,
+        marketPriceINC = 0;
+    
+    // Deployment Calculator Function
+    function calculateDeployment() {
+      // Retrieve slider values
+      var ethPrice = parseFloat(document.getElementById('ethPrice').value);
+      var onChainPercent = parseFloat(document.getElementById('onChainEthPercent').value);
+      var richardPercent = parseFloat(document.getElementById('richardSacPercent').value);
+      var stablesPercent = parseFloat(document.getElementById('stablesPercent').value);
+      
+      // Update displayed slider values
+      document.getElementById('ethPriceDisplay').innerText = ethPrice;
+      document.getElementById('onChainEthPercentDisplay').innerText = onChainPercent;
+      document.getElementById('richardSacPercentDisplay').innerText = richardPercent;
+      document.getElementById('stablesPercentDisplay').innerText = stablesPercent;
+      
+      // Constants
+      var totalOnChainEth = 4731;     // Total on-chain ETH available
+      var totalRichardEth = 171000;   // Total ETH in Richard's Sac Bag
+      var totalStables = 21.5;        // Total stables in millions of dollars
+      
+      // Calculate deployed amounts
+      var deployedOnChainEth = totalOnChainEth * (onChainPercent / 100);
+      var deployedRichardEth = totalRichardEth * (richardPercent / 100);
+      var deployedStablesDollars = totalStables * (stablesPercent / 100) * 1e6; // Convert millions to dollars
+      
+      // Compute values (in dollars)
+      var onChainValue = deployedOnChainEth * ethPrice;
+      var richardValue = deployedRichardEth * ethPrice;
+      
+      // Total deployed dollars
+      var totalDeployment = onChainValue + richardValue + deployedStablesDollars;
+      
+      // Update display for Total Money Deployed
+      document.getElementById('totalDeployment').innerText =
+        totalDeployment.toLocaleString(undefined, { maximumFractionDigits: 2 });
+      
+      // Update the global variable
+      globalTotalDeployment = totalDeployment;
+      
+      // Update the LP Calculator dollar amount display
+      document.getElementById('lpDollarAmountDisplay').innerText =
+        totalDeployment.toLocaleString(undefined, { maximumFractionDigits: 2 });
+      
+      // Recalculate the LP price movement with the new deployment value
+      calculatePriceMovement();
+    }
+    
+    // Liquidity Pool Price Movement Calculator Function
+    function calculatePriceMovement() {
+      // For a 50/50 UniV2 pool with total liquidity of $45M,
+      // each side holds ~22.5M. For small trades, approximate:
+      // baseImpact (in decimal) = Total Deployed / 22,500,000.
+      var reserve = 22500000; // stables side reserve
+      var baseImpact = globalTotalDeployment / reserve;
+      
+      // Compute percentage moves using token-specific multipliers:
+      // PLS: 2x, PLSX: 4x, HEX: 6x, INC: 6x.
+      var plsMultiplier = 2;
+      var plsxMultiplier = 4;
+      var hexMultiplier = 6;
+      var incMultiplier = 6;
+      
+      var plsMove = baseImpact * plsMultiplier * 100;
+      var plsxMove = baseImpact * plsxMultiplier * 100;
+      var hexMove = baseImpact * hexMultiplier * 100;
+      var incMove = baseImpact * incMultiplier * 100;
+      
+      // Compute new prices based on each asset's market price and multiplier impact
+      var newPlsPrice = marketPricePLS * (1 + baseImpact * plsMultiplier);
+      var newPlsxPrice = marketPricePLSX * (1 + baseImpact * plsxMultiplier);
+      var newHexPrice = marketPriceHEX * (1 + baseImpact * hexMultiplier);
+      var newIncPrice = marketPriceINC * (1 + baseImpact * incMultiplier);
+      
+      // Update the output displays (plain text, 6 decimal places)
+      document.getElementById('plsMove').innerText = plsMove.toFixed(2);
+      document.getElementById('plsxMove').innerText = plsxMove.toFixed(2);
+      document.getElementById('hexMove').innerText = hexMove.toFixed(2);
+      document.getElementById('incMove').innerText = incMove.toFixed(2);
+      
+      document.getElementById('plsNewPrice').innerText = newPlsPrice.toFixed(6);
+      document.getElementById('plsxNewPrice').innerText = newPlsxPrice.toFixed(6);
+      document.getElementById('hexNewPrice').innerText = newHexPrice.toFixed(6);
+      document.getElementById('incNewPrice').innerText = newIncPrice.toFixed(6);
+    }
+    
+    // Function to fetch real-time token prices from Dexscreener
+    function fetchDexscreenerPrices() {
+      const tokens = {
+        PLS: "0xA1077a294dDE1B09bB078844df40758a5D0f9a27",
+        PLSX: "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
+        HEX: "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
+        INC: "0x2fa878Ab3F87CC1C9737Fc071108F904c0B0C95d"
+      };
+      
+      Object.keys(tokens).forEach(token => {
+        fetch(`https://api.dexscreener.com/latest/dex/tokens/${tokens[token]}`)
+          .then(res => res.json())
+          .then(data => {
+            // Assume the first pair contains the current price in USD
+            let price = (data?.pairs && data.pairs.length > 0 && data.pairs[0].priceUsd) || "0";
+            let priceFloat = parseFloat(price);
+            // Update the corresponding market price display element (plain text, 6 decimals)
+            document.getElementById(`${token.toLowerCase()}MarketPrice`).innerText = priceFloat.toFixed(6);
+            
+            // Store the fetched price in the appropriate global variable
+            if (token === "PLS") {
+              marketPricePLS = priceFloat;
+            } else if (token === "PLSX") {
+              marketPricePLSX = priceFloat;
+            } else if (token === "HEX") {
+              marketPriceHEX = priceFloat;
+            } else if (token === "INC") {
+              marketPriceINC = priceFloat;
+            }
+            // Recalculate the LP price movement after updating prices
+            calculatePriceMovement();
+          })
+          .catch(error => {
+            console.error(`Error fetching price for ${token}:`, error);
+            document.getElementById(`${token.toLowerCase()}MarketPrice`).innerText = "Error";
+          });
+      });
+    }
+    
+    // Initialize both calculators and fetch prices on page load
+    calculateDeployment();
+    calculatePriceMovement();
+    fetchDexscreenerPrices();
+    
+    // Optionally, refresh prices periodically (e.g., every minute)
+    // setInterval(fetchDexscreenerPrices, 60000);
+  </script>
+</body>
+</html>
