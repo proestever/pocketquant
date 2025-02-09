@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <!-- Responsive meta tag -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZOOMER POCKET QUANT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIGA QUANT</title>
+  <!-- Import Inter font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* Global box sizing */
+    * {
+      box-sizing: border-box;
+    }
+    /* Keyframes for fade-in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
     /* Base Styles */
     body {
-      font-family: 'Satoshi', sans-serif;
+      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
       background-color: #030711;
@@ -18,16 +29,47 @@
       max-width: 1200px;
       margin: 40px auto;
       padding: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    h1, h2, h3 {
+      text-align: center;
     }
     h1 {
-      text-align: center;
       margin-bottom: 30px;
-      font-size: 2.5em;
+      font-size: 2.8em;
     }
     h2 {
-      color: #ffffff;
-      text-align: center;
-      margin-top: 20px;
+      margin: 20px 0 20px;
+      font-size: 2em;
+    }
+    h3 {
+      margin: 10px 0;
+      font-size: 1.5em;
+    }
+    /* Divider styles */
+    .divider {
+      height: 1px;
+      background-color: #1d283a;
+      width: 100%;
+      margin: 8px 0;
+    }
+    .section-divider {
+      border: none;
+      height: 2px;
+      background-color: #1d283a;
+      margin: 20px 0;
+    }
+    /* Card Base (used for many sections) */
+    .card {
+      background-color: #0d1120;
+      border: 1px solid #1d283a;
+      border-radius: 8px;
+      padding: 15px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      background-color: #131827;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
     }
     /* Ticker Logo Style */
     .ticker-logo {
@@ -36,39 +78,113 @@
       vertical-align: middle;
       margin-right: 5px;
     }
-    /* Market Prices Section */
-    .market-prices {
-      background-color: #020204;
+    /* Tooltip Styles */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: help;
+      color: #ffffff;
+      font-weight: bold;
+      margin-left: 5px;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 180px;
+      background-color: #1d283a;
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -90px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.85em;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    /* Price Cards for Market Prices & Liquidity */
+    .price-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .price-card {
+      background-color: #0d1120;
       border: 1px solid #1d283a;
       border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 40px;
+      padding: 15px;
+      width: 220px;
       text-align: center;
+      transition: background-color 0.3s ease;
     }
-    .market-prices h2 {
-      margin-bottom: 20px;
+    .price-card:hover {
+      background-color: #131827;
     }
-    .market-prices p {
-      font-size: 1.2em;
-      margin: 10px 0;
+    .price-card p {
+      margin: 8px 0;
+      line-height: 1.4;
     }
-    /* Dashboard container for side‑by‑side layout */
-    .dashboard-container {
+    /* Section Headers for Market Overview */
+    .market-header {
+      text-align: center;
+      margin: 20px 0 10px;
+      font-size: 1.8em;
+      border-bottom: 1px solid #1d283a;
+      padding-bottom: 5px;
+    }
+    /* Upper Section Layout */
+    .upper-section {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
     }
-    /* Section containers */
-    .calculator-container,
-    .lp-calculator-container {
-      background-color: #020204;
-      border: 1px solid #1d283a;
-      border-radius: 8px;
-      padding: 20px;
+    .assets-column {
       flex: 1;
       min-width: 300px;
     }
-    /* Section Header */
+    .deployment-column {
+      flex: 1;
+      min-width: 300px;
+    }
+    /* Lower Section: Core Assets (Price Movement) */
+    .lp-calc-section {
+      margin-top: 30px;
+    }
+    /* Price Movement Cards (square blocks) */
+    .price-movement-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .price-movement-card {
+      background-color: #0d1120;
+      border: 1px solid #1d283a;
+      border-radius: 8px;
+      width: 220px;
+      height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: background-color 0.3s ease;
+      padding: 10px;
+    }
+    .price-movement-card:hover {
+      background-color: #131827;
+    }
+    .price-movement-card p {
+      margin: 5px 0;
+    }
+    /* Section Headers for Calculators */
     .section-header {
       text-align: center;
       margin-bottom: 20px;
@@ -76,9 +192,9 @@
       border-bottom: 1px solid #1d283a;
       padding-bottom: 10px;
     }
-    /* Input and Slider Groups */
+    /* Slider Container */
     .slider-container {
-      background-color: #020204;
+      background-color: #0d1120;
       border: 1px solid #1d283a;
       border-radius: 8px;
       padding: 15px;
@@ -90,7 +206,7 @@
       font-weight: bold;
     }
     .value-display {
-      background-color: #020204;
+      background-color: #0d1120;
       padding: 2px 6px;
       border-radius: 4px;
       font-weight: normal;
@@ -108,20 +224,20 @@
     }
     /* Output styling */
     .output {
-      font-size: 1.2em;
-      text-align: center;
-      padding: 15px;
-      background-color: #020204;
+      background-color: #0d1120;
       border: 1px solid #1d283a;
       border-radius: 8px;
+      padding: 15px;
       margin-bottom: 20px;
+      text-align: center;
+      transition: background-color 0.3s ease;
     }
-    p {
-      margin: 10px 0;
+    .output:hover {
+      background-color: #131827;
     }
     /* Responsive behavior */
     @media (max-width: 768px) {
-      .dashboard-container {
+      .upper-section {
         flex-direction: column;
       }
     }
@@ -129,207 +245,290 @@
 </head>
 <body>
   <div class="container">
-    <h1>ZOOMER POCKET QUANT Dashboard</h1>
+    <h1>GIGA QUANT</h1>
     
-    <!-- Market Prices Section -->
-    <div class="market-prices">
-      <h2>Current Market Prices</h2>
-      <p>
-        <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edd1e9aa195320a330b7_pulselogo%20trimmed.png" alt="PLS Logo" class="ticker-logo" />
-        PLS: $<span id="plsMarketPrice">Loading...</span>
-      </p>
-      <p>
-        <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee1d2d83a860ecc432c0_PulseX_X.svg" alt="PLSX Logo" class="ticker-logo" />
-        PLSX: $<span id="plsxMarketPrice">Loading...</span>
-      </p>
-      <p>
-        <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee842d83a860ecc48477_HEXagon.svg" alt="HEX Logo" class="ticker-logo" />
-        HEX: $<span id="hexMarketPrice">Loading...</span>
-      </p>
-      <p>
-        <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edbc6c0cce17d1a68ce1_INC%20PNG%20VECT-p-1600.png" alt="INC Logo" class="ticker-logo" />
-        INC: $<span id="incMarketPrice">Loading...</span>
-      </p>
-    </div>
-    
-    <!-- Dashboard: Side‑by‑side Calculators -->
-    <div class="dashboard-container">
-      <!-- Deployment Calculator Section -->
-      <div class="calculator-container">
-        <div class="section-header">Deployment Calculator</div>
-        <!-- ETH Price Slider with ETH Logo -->
-        <div class="slider-container">
-          <label for="ethPrice">
-            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee510e939dfa15c662f7_3287b3-ethereum-eth.svg" alt="ETH Logo" class="ticker-logo" />
-            ETH Price ($):
-            <span id="ethPriceDisplay" class="value-display">4000</span>
-          </label>
-          <input type="range" id="ethPrice" min="2000" max="8000" step="50" value="4000" oninput="calculateDeployment()">
+    <!-- Upper Section: Assets (Base Value) and Deployment Calculator -->
+    <div class="upper-section">
+      <!-- Assets Column (Base Value) -->
+      <div class="assets-column">
+        <h2>Market Overview</h2>
+        <!-- Base Value Section -->
+        <h3 class="market-header">Base Value</h3>
+        <div class="price-cards">
+          <!-- Ethereum Card (Using Fetched ETH Data) -->
+          <div class="price-card card">
+            <p>
+              <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee510e939dfa15c662f7_3287b3-ethereum-eth.svg" alt="ETH Logo" class="ticker-logo" />
+              ETHEREUM
+            </p>
+            <div class="divider"></div>
+            <p>Price: $<span id="ethMarketPrice">Loading...</span></p>
+            <p>Liquidity: $<span id="ethLiquidity">Loading...</span></p>
+          </div>
+          <!-- SAC WALLET Card (Calculated from Fetched ETH Data) -->
+          <div class="price-card card">
+            <p>
+              <img src="https://gopulse.com/img/coins/MOST.svg" alt="SAC Wallet Logo" class="ticker-logo" />
+              SAC WALLET
+            </p>
+            <div class="divider"></div>
+            <p>Holdings: 171,000 ETH</p>
+            <p>Value: $<span id="sacWalletValue">Loading...</span></p>
+          </div>
         </div>
-        <!-- On-Chain ETH Deploy Percentage Slider -->
-        <div class="slider-container">
-          <label for="onChainEthPercent">
-            On-Chain ETH (4,731 ETH) Deploy (%):
-            <span id="onChainEthPercentDisplay" class="value-display">100</span>%
-          </label>
-          <input type="range" id="onChainEthPercent" min="0" max="100" step="1" value="100" oninput="calculateDeployment()">
-        </div>
-        <!-- Richard's Sac Bag Deploy Percentage Slider -->
-        <div class="slider-container">
-          <label for="richardSacPercent">
-            Richard's Sac Bag (171,000 ETH) Deploy (%):
-            <span id="richardSacPercentDisplay" class="value-display">100</span>%
-          </label>
-          <input type="range" id="richardSacPercent" min="0" max="100" step="1" value="100" oninput="calculateDeployment()">
-        </div>
-        <!-- Stables On-Chain Deployed Percentage Slider -->
-        <div class="slider-container">
-          <label for="stablesPercent">
-            Stables On-Chain Deployed (21.5M $) (%):
-            <span id="stablesPercentDisplay" class="value-display">100</span>%
-          </label>
-          <input type="range" id="stablesPercent" min="0" max="100" step="1" value="100" oninput="calculateDeployment()">
-        </div>
-        <!-- Total Money Deployed Output -->
-        <div class="output">
-          <strong>Total Money Deployed into PLS: $<span id="totalDeployment"></span></strong>
+        <!-- Divider Between Base Value and Core Assets -->
+        <hr class="section-divider" />
+        <!-- Core Assets (Tokens) Section -->
+        <h3 class="market-header">Core Assets</h3>
+        <div class="price-cards">
+          <!-- PLS Card -->
+          <div class="price-card card">
+            <p>
+              <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edd1e9aa195320a330b7_pulselogo%20trimmed.png" alt="PLS Logo" class="ticker-logo" />
+              <strong>PLS</strong>
+            </p>
+            <div class="divider"></div>
+            <p>Price: $<span id="plsMarketPrice">Loading...</span></p>
+            <p>Liquidity: $<span id="plsLiquidity">Loading...</span></p>
+          </div>
+          <!-- PLSX Card -->
+          <div class="price-card card">
+            <p>
+              <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee1d2d83a860ecc432c0_PulseX_X.svg" alt="PLSX Logo" class="ticker-logo" />
+              <strong>PLSX</strong>
+            </p>
+            <div class="divider"></div>
+            <p>Price: $<span id="plsxMarketPrice">Loading...</span></p>
+            <p>Liquidity: $<span id="plsxLiquidity">Loading...</span></p>
+          </div>
+          <!-- HEX Card -->
+          <div class="price-card card">
+            <p>
+              <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee842d83a860ecc48477_HEXagon.svg" alt="HEX Logo" class="ticker-logo" />
+              <strong>HEX</strong>
+            </p>
+            <div class="divider"></div>
+            <p>Price: $<span id="hexMarketPrice">Loading...</span></p>
+            <p>Liquidity: $<span id="hexLiquidity">Loading...</span></p>
+          </div>
+          <!-- INC Card -->
+          <div class="price-card card">
+            <p>
+              <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edbc6c0cce17d1a68ce1_INC%20PNG%20VECT-p-1600.png" alt="INC Logo" class="ticker-logo" />
+              <strong>INC</strong>
+            </p>
+            <div class="divider"></div>
+            <p>Price: $<span id="incMarketPrice">Loading...</span></p>
+            <p>Liquidity: $<span id="incLiquidity">Loading...</span></p>
+          </div>
         </div>
       </div>
       
-      <!-- Liquidity Pool Price Movement Calculator Section -->
-      <div class="lp-calculator-container">
-        <div class="section-header">Liquidity Pool Price Movement Calculator</div>
-        <!-- Notice: Using fetched market prices for all tokens -->
-        <div class="slider-container">
-          <p><strong>Using fetched market prices for all tokens</strong></p>
-        </div>
-        <!-- Display of Total Money Deployed Used for LP Calculation -->
-        <div class="slider-container">
-          <p>
-            <strong>Total Money Deployed Used for LP Calculation:</strong> $<span id="lpDollarAmountDisplay"></span>
-          </p>
-        </div>
-        <!-- Price Movement Output -->
-        <div class="output">
-          <p><strong>Price Movement on Buy:</strong></p>
-          <p>
-            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edd1e9aa195320a330b7_pulselogo%20trimmed.png" alt="PLS Logo" class="ticker-logo" />
-            PLS: <span id="plsMove">0</span>% move, New Price: $<span id="plsNewPrice">0</span>
-          </p>
-          <p>
-            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee1d2d83a860ecc432c0_PulseX_X.svg" alt="PLSX Logo" class="ticker-logo" />
-            PLSX: <span id="plsxMove">0</span>% move, New Price: $<span id="plsxNewPrice">0</span>
-          </p>
-          <p>
-            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee842d83a860ecc48477_HEXagon.svg" alt="HEX Logo" class="ticker-logo" />
-            HEX: <span id="hexMove">0</span>% move, New Price: $<span id="hexNewPrice">0</span>
-          </p>
-          <p>
-            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edbc6c0cce17d1a68ce1_INC%20PNG%20VECT-p-1600.png" alt="INC Logo" class="ticker-logo" />
-            INC: <span id="incMove">0</span>% move, New Price: $<span id="incNewPrice">0</span>
-          </p>
+      <!-- Deployment Calculator Column -->
+      <div class="deployment-column">
+        <div class="card">
+          <div class="section-header">Deployment Calculator</div>
+          <!-- ETH Price Slider (Used for Deployment Calculations Only) -->
+          <div class="slider-container">
+            <label for="ethPrice">
+              <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee510e939dfa15c662f7_3287b3-ethereum-eth.svg" alt="ETH Logo" class="ticker-logo" />
+              ETH Price ($):
+              <span id="ethPriceDisplay" class="value-display">4000</span>
+              <span class="tooltip">?
+                <span class="tooltiptext">Adjust the ETH price used for deployment calculations.</span>
+              </span>
+            </label>
+            <input type="range" id="ethPrice" min="2000" max="8000" step="50" value="4000" oninput="calculateDeployment()" />
+          </div>
+          <!-- On-Chain ETH Deploy Percentage Slider -->
+          <div class="slider-container">
+            <label for="onChainEthPercent">
+              On-Chain ETH (4,731 ETH) Deploy (%):
+              <span id="onChainEthPercentDisplay" class="value-display">100</span>%
+              <span class="tooltip">?
+                <span class="tooltiptext">Percentage of on-chain ETH used.</span>
+              </span>
+            </label>
+            <input type="range" id="onChainEthPercent" min="0" max="100" step="1" value="100" oninput="calculateDeployment()" />
+          </div>
+          <!-- Richard's Sac Bag Deploy Percentage Slider -->
+          <div class="slider-container">
+            <label for="richardSacPercent">
+              Richard's Sac Bag (171,000 ETH) Deploy (%):
+              <span id="richardSacPercentDisplay" class="value-display">100</span>%
+              <span class="tooltip">?
+                <span class="tooltiptext">Percentage of ETH from the Sac Wallet used.</span>
+              </span>
+            </label>
+            <input type="range" id="richardSacPercent" min="0" max="100" step="1" value="100" oninput="calculateDeployment()" />
+          </div>
+          <!-- Stables On-Chain Deployed Percentage Slider -->
+          <div class="slider-container">
+            <label for="stablesPercent">
+              Stables On-Chain Deployed (21.5M $) (%):
+              <span id="stablesPercentDisplay" class="value-display">100</span>%
+              <span class="tooltip">?
+                <span class="tooltiptext">Percentage of stable capital deployed.</span>
+              </span>
+            </label>
+            <input type="range" id="stablesPercent" min="0" max="100" step="1" value="100" oninput="calculateDeployment()" />
+          </div>
+          <!-- Total Capital Deployed Output -->
+          <div class="output">
+            <strong>Total Capital Deployed into PLS: $<span id="totalDeployment">0</span></strong>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  
-  <script>
-    // Global variable to hold the deployment value
-    let globalTotalDeployment = 0;
     
-    // Global variables to store the fetched market prices
-    let marketPricePLS = 0,
+    <!-- Lower Section: Core Assets - Price Movement (Square Blocks) -->
+    <div class="lp-calc-section">
+      <div class="card">
+        <div class="section-header">Core Assets - Price Movement</div>
+        <div class="price-movement-cards">
+          <!-- PLS Block -->
+          <div class="price-movement-card">
+            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edd1e9aa195320a330b7_pulselogo%20trimmed.png" alt="PLS Logo" class="ticker-logo" />
+            <p><strong>PLS</strong></p>
+            <div class="divider"></div>
+            <p>Price: $<span id="plsNewPrice">0</span></p>
+            <p>% Increase: <span id="plsMove">0</span></p>
+            <p>Multiplier: <span id="plsMultiplier">0x</span></p>
+          </div>
+          <!-- PLSX Block -->
+          <div class="price-movement-card">
+            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee1d2d83a860ecc432c0_PulseX_X.svg" alt="PLSX Logo" class="ticker-logo" />
+            <p><strong>PLSX</strong></p>
+            <div class="divider"></div>
+            <p>Price: $<span id="plsxNewPrice">0</span></p>
+            <p>% Increase: <span id="plsxMove">0</span></p>
+            <p>Multiplier: <span id="plsxMultiplier">0x</span></p>
+          </div>
+          <!-- HEX Block -->
+          <div class="price-movement-card">
+            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8ee842d83a860ecc48477_HEXagon.svg" alt="HEX Logo" class="ticker-logo" />
+            <p><strong>HEX</strong></p>
+            <div class="divider"></div>
+            <p>Price: $<span id="hexNewPrice">0</span></p>
+            <p>% Increase: <span id="hexMove">0</span></p>
+            <p>Multiplier: <span id="hexMultiplier">0x</span></p>
+          </div>
+          <!-- INC Block -->
+          <div class="price-movement-card">
+            <img src="https://cdn.prod.website-files.com/67a0cb20a913364adf0401a8/67a8edbc6c0cce17d1a68ce1_INC%20PNG%20VECT-p-1600.png" alt="INC Logo" class="ticker-logo" />
+            <p><strong>INC</strong></p>
+            <div class="divider"></div>
+            <p>Price: $<span id="incNewPrice">0</span></p>
+            <p>% Increase: <span id="incMove">0</span></p>
+            <p>Multiplier: <span id="incMultiplier">0x</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <script>
+    // Global variable to hold the capital deployment value
+    let globalTotalCapital = 0;
+    
+    // Global variables to store the fetched market prices for tokens
+    let marketPriceETH = 0,
+        marketPricePLS = 0,
         marketPricePLSX = 0,
         marketPriceHEX = 0,
         marketPriceINC = 0;
     
+    // Define constants for liquidity values (in dollars)
+    const liquidityPLS = 18546332.36; // PLS liquidity (derived from stables)
+    const liquidityETH = 5000000000;  // ETH liquidity for Ethereum card
+    
     // Deployment Calculator Function
     function calculateDeployment() {
-      // Retrieve slider values
-      var ethPrice = parseFloat(document.getElementById('ethPrice').value);
+      // Retrieve slider values (only used for deployment calculations)
+      var ethSliderPrice = parseFloat(document.getElementById('ethPrice').value);
       var onChainPercent = parseFloat(document.getElementById('onChainEthPercent').value);
       var richardPercent = parseFloat(document.getElementById('richardSacPercent').value);
       var stablesPercent = parseFloat(document.getElementById('stablesPercent').value);
       
-      // Update displayed slider values
-      document.getElementById('ethPriceDisplay').innerText = ethPrice;
+      // Update displayed slider values for deployment calculator
+      document.getElementById('ethPriceDisplay').innerText = ethSliderPrice;
       document.getElementById('onChainEthPercentDisplay').innerText = onChainPercent;
       document.getElementById('richardSacPercentDisplay').innerText = richardPercent;
       document.getElementById('stablesPercentDisplay').innerText = stablesPercent;
       
-      // Constants
+      // For deployment calculations, use the slider ETH price
       var totalOnChainEth = 4731;     // Total on-chain ETH available
-      var totalRichardEth = 171000;   // Total ETH in Richard's Sac Bag
+      var totalRichardEth = 171000;   // Total ETH in Richard's Sac Bag (for deployment)
       var totalStables = 21.5;        // Total stables in millions of dollars
       
-      // Calculate deployed amounts
+      // Calculate deployed amounts (in dollar value)
       var deployedOnChainEth = totalOnChainEth * (onChainPercent / 100);
       var deployedRichardEth = totalRichardEth * (richardPercent / 100);
-      var deployedStablesDollars = totalStables * (stablesPercent / 100) * 1e6; // Convert millions to dollars
+      var deployedStablesDollars = totalStables * (stablesPercent / 100) * 1e6;
       
-      // Compute values (in dollars)
-      var onChainValue = deployedOnChainEth * ethPrice;
-      var richardValue = deployedRichardEth * ethPrice;
+      // Compute total capital deployed (in dollars) using the slider ETH price
+      var totalCapital = deployedOnChainEth * ethSliderPrice + deployedRichardEth * ethSliderPrice + deployedStablesDollars;
       
-      // Total deployed dollars
-      var totalDeployment = onChainValue + richardValue + deployedStablesDollars;
-      
-      // Update display for Total Money Deployed
       document.getElementById('totalDeployment').innerText =
-        totalDeployment.toLocaleString(undefined, { maximumFractionDigits: 2 });
+        totalCapital.toLocaleString(undefined, { maximumFractionDigits: 2 });
       
-      // Update the global variable
-      globalTotalDeployment = totalDeployment;
+      globalTotalCapital = totalCapital;
       
-      // Update the LP Calculator dollar amount display
-      document.getElementById('lpDollarAmountDisplay').innerText =
-        totalDeployment.toLocaleString(undefined, { maximumFractionDigits: 2 });
-      
-      // Recalculate the LP price movement with the new deployment value
+      // Recalculate the price movement with the new capital deployment value
       calculatePriceMovement();
     }
     
-    // Liquidity Pool Price Movement Calculator Function
+    // Liquidity Pool Price Movement Calculator Function using flat returns
     function calculatePriceMovement() {
-      // For a 50/50 UniV2 pool with total liquidity of $45M,
-      // each side holds ~22.5M. For small trades, approximate:
-      // baseImpact (in decimal) = Total Deployed / 22,500,000.
-      var reserve = 22500000; // stables side reserve
-      var baseImpact = globalTotalDeployment / reserve;
+      // Compute the pump factor f for PLS from capital injection:
+      // f = 1 + (capital injected / liquidity of PLS pool)
+      var f = 1 + (globalTotalCapital / liquidityPLS);
       
-      // Compute percentage moves using token-specific multipliers:
-      // PLS: 2x, PLSX: 4x, HEX: 6x, INC: 6x.
-      var plsMultiplier = 2;
-      var plsxMultiplier = 4;
-      var hexMultiplier = 6;
-      var incMultiplier = 6;
+      // Flat multipliers:
+      // PLS multiplier is f.
+      // PLSX multiplier is 2 * f.
+      // HEX and INC multipliers are 4 * f.
+      var multiplierPLS = f;
+      var multiplierPLSX = 2 * f;
+      var multiplierHEX = 4 * f;
+      var multiplierINC = 4 * f;
       
-      var plsMove = baseImpact * plsMultiplier * 100;
-      var plsxMove = baseImpact * plsxMultiplier * 100;
-      var hexMove = baseImpact * hexMultiplier * 100;
-      var incMove = baseImpact * incMultiplier * 100;
+      // Compute percentage changes for display
+      var plsPercent = (multiplierPLS - 1) * 100;
+      var plsxPercent = (multiplierPLSX - 1) * 100;
+      var hexPercent = (multiplierHEX - 1) * 100;
+      var incPercent = (multiplierINC - 1) * 100;
       
-      // Compute new prices based on each asset's market price and multiplier impact
-      var newPlsPrice = marketPricePLS * (1 + baseImpact * plsMultiplier);
-      var newPlsxPrice = marketPricePLSX * (1 + baseImpact * plsxMultiplier);
-      var newHexPrice = marketPriceHEX * (1 + baseImpact * hexMultiplier);
-      var newIncPrice = marketPriceINC * (1 + baseImpact * incMultiplier);
+      // Update displays for price movement as percentages (with one "%" appended)
+      document.getElementById('plsMove').innerText = plsPercent.toFixed(2) + "%";
+      document.getElementById('plsxMove').innerText = plsxPercent.toFixed(2) + "%";
+      document.getElementById('hexMove').innerText = hexPercent.toFixed(2) + "%";
+      document.getElementById('incMove').innerText = incPercent.toFixed(2) + "%";
       
-      // Update the output displays (plain text, 6 decimal places)
-      document.getElementById('plsMove').innerText = plsMove.toFixed(2);
-      document.getElementById('plsxMove').innerText = plsxMove.toFixed(2);
-      document.getElementById('hexMove').innerText = hexMove.toFixed(2);
-      document.getElementById('incMove').innerText = incMove.toFixed(2);
+      // Also update multiplier displays
+      document.getElementById('plsMultiplier').innerText = multiplierPLS.toFixed(2) + "x";
+      document.getElementById('plsxMultiplier').innerText = multiplierPLSX.toFixed(2) + "x";
+      document.getElementById('hexMultiplier').innerText = multiplierHEX.toFixed(2) + "x";
+      document.getElementById('incMultiplier').innerText = multiplierINC.toFixed(2) + "x";
       
+      // Compute new prices using the fetched market prices as base values
+      var newPlsPrice = marketPricePLS * multiplierPLS;
+      var newPlsxPrice = marketPricePLSX * multiplierPLSX;
+      var newHexPrice = marketPriceHEX * multiplierHEX;
+      var newIncPrice = marketPriceINC * multiplierINC;
+      
+      // Update the output displays (formatted)
       document.getElementById('plsNewPrice').innerText = newPlsPrice.toFixed(6);
       document.getElementById('plsxNewPrice').innerText = newPlsxPrice.toFixed(6);
       document.getElementById('hexNewPrice').innerText = newHexPrice.toFixed(6);
       document.getElementById('incNewPrice').innerText = newIncPrice.toFixed(6);
     }
     
-    // Function to fetch real-time token prices from Dexscreener
+    // Function to fetch real-time token prices and liquidity from Dexscreener
     function fetchDexscreenerPrices() {
       const tokens = {
+        ETH: "0x02dcdd04e3f455d838cd1249292c58f3b79e3c3c", // New address for ETH
         PLS: "0xA1077a294dDE1B09bB078844df40758a5D0f9a27",
         PLSX: "0x95B303987A60C71504D99Aa1b13B4DA07b0790ab",
         HEX: "0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39",
@@ -337,36 +536,60 @@
       };
       
       Object.keys(tokens).forEach(token => {
-        fetch(`https://api.dexscreener.com/latest/dex/tokens/${tokens[token]}`)
+        const url = `https://api.dexscreener.com/latest/dex/tokens/${tokens[token]}`;
+        
+        fetch(url)
           .then(res => res.json())
           .then(data => {
-            // Assume the first pair contains the current price in USD
-            let price = (data?.pairs && data.pairs.length > 0 && data.pairs[0].priceUsd) || "0";
-            let priceFloat = parseFloat(price);
-            // Update the corresponding market price display element (plain text, 6 decimals)
-            document.getElementById(`${token.toLowerCase()}MarketPrice`).innerText = priceFloat.toFixed(6);
-            
-            // Store the fetched price in the appropriate global variable
-            if (token === "PLS") {
-              marketPricePLS = priceFloat;
-            } else if (token === "PLSX") {
-              marketPricePLSX = priceFloat;
-            } else if (token === "HEX") {
-              marketPriceHEX = priceFloat;
-            } else if (token === "INC") {
-              marketPriceINC = priceFloat;
+            if (data?.pairs && data.pairs.length > 0) {
+              const pairData = data.pairs[0];
+              const price = pairData.priceUsd || "0";
+              const priceFloat = parseFloat(price);
+              
+              if (token === "ETH") {
+                marketPriceETH = priceFloat;
+                document.getElementById('ethMarketPrice').innerText = marketPriceETH.toFixed(2);
+                const liquidityUsd = pairData.liquidity && pairData.liquidity.usd
+                  ? parseFloat(pairData.liquidity.usd)
+                  : 0;
+                document.getElementById('ethLiquidity').innerText = liquidityUsd
+                  ? liquidityUsd.toLocaleString(undefined, { maximumFractionDigits: 2 })
+                  : "N/A";
+                // Update SAC WALLET value based on fetched ETH price
+                var sacWalletValue = marketPriceETH * 171000;
+                document.getElementById('sacWalletValue').innerText = sacWalletValue.toLocaleString(undefined, { maximumFractionDigits: 2 });
+              } else {
+                document.getElementById(`${token.toLowerCase()}MarketPrice`).innerText = priceFloat.toFixed(6);
+                if (token === "PLS") {
+                  marketPricePLS = priceFloat;
+                } else if (token === "PLSX") {
+                  marketPricePLSX = priceFloat;
+                } else if (token === "HEX") {
+                  marketPriceHEX = priceFloat;
+                } else if (token === "INC") {
+                  marketPriceINC = priceFloat;
+                }
+                const liquidityUsd = pairData.liquidity && pairData.liquidity.usd
+                  ? parseFloat(pairData.liquidity.usd)
+                  : 0;
+                document.getElementById(`${token.toLowerCase()}Liquidity`).innerText = liquidityUsd
+                  ? liquidityUsd.toLocaleString(undefined, { maximumFractionDigits: 2 })
+                  : "N/A";
+              }
+              calculatePriceMovement();
             }
-            // Recalculate the LP price movement after updating prices
-            calculatePriceMovement();
           })
           .catch(error => {
-            console.error(`Error fetching price for ${token}:`, error);
-            document.getElementById(`${token.toLowerCase()}MarketPrice`).innerText = "Error";
+            console.error(`Error fetching data for ${token}:`, error);
+            if(document.getElementById(`${token.toLowerCase()}MarketPrice`)) {
+              document.getElementById(`${token.toLowerCase()}MarketPrice`).innerText = "Error";
+              document.getElementById(`${token.toLowerCase()}Liquidity`).innerText = "Error";
+            }
           });
       });
     }
     
-    // Initialize both calculators and fetch prices on page load
+    // Initialize calculators and fetch prices on page load
     calculateDeployment();
     calculatePriceMovement();
     fetchDexscreenerPrices();
