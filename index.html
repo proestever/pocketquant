@@ -22,8 +22,8 @@
       font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #030711;
-      color: #ffffff;
+      background-color: #111111;  /* Very dark grey background */
+      color: #e0e0e0;
     }
     .container {
       max-width: 1200px;
@@ -49,27 +49,27 @@
     /* Divider styles */
     .divider {
       height: 1px;
-      background-color: #1d283a;
+      background-color: #444444;
       width: 100%;
       margin: 8px 0;
     }
     .section-divider {
       border: none;
       height: 2px;
-      background-color: #1d283a;
+      background-color: #444444;
       margin: 20px 0;
     }
     /* Card Base (used for many sections) */
     .card {
-      background-color: #0d1120;
-      border: 1px solid #1d283a;
+      background-color: #1a1a1a;
+      border: 1px solid #333333;
       border-radius: 8px;
       padding: 15px;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
     .card:hover {
-      background-color: #131827;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+      background-color: #222222;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.7);
     }
     /* Ticker Logo Style */
     .ticker-logo {
@@ -83,14 +83,14 @@
       position: relative;
       display: inline-block;
       cursor: help;
-      color: #ffffff;
+      color: #e0e0e0;
       font-weight: bold;
       margin-left: 5px;
     }
     .tooltip .tooltiptext {
       visibility: hidden;
       width: 180px;
-      background-color: #1d283a;
+      background-color: #333333;
       color: #fff;
       text-align: center;
       border-radius: 4px;
@@ -116,8 +116,8 @@
       justify-content: center;
     }
     .price-card {
-      background-color: #0d1120;
-      border: 1px solid #1d283a;
+      background-color: #1a1a1a;
+      border: 1px solid #333333;
       border-radius: 8px;
       padding: 15px;
       width: 220px;
@@ -125,7 +125,7 @@
       transition: background-color 0.3s ease;
     }
     .price-card:hover {
-      background-color: #131827;
+      background-color: #222222;
     }
     .price-card p {
       margin: 8px 0;
@@ -136,7 +136,7 @@
       text-align: center;
       margin: 20px 0 10px;
       font-size: 1.8em;
-      border-bottom: 1px solid #1d283a;
+      border-bottom: 1px solid #444444;
       padding-bottom: 5px;
     }
     /* Upper Section Layout */
@@ -165,8 +165,8 @@
       justify-content: center;
     }
     .price-movement-card {
-      background-color: #0d1120;
-      border: 1px solid #1d283a;
+      background-color: #1a1a1a;
+      border: 1px solid #333333;
       border-radius: 8px;
       width: 220px;
       height: 220px;
@@ -179,7 +179,7 @@
       padding: 10px;
     }
     .price-movement-card:hover {
-      background-color: #131827;
+      background-color: #222222;
     }
     .price-movement-card p {
       margin: 5px 0;
@@ -189,13 +189,13 @@
       text-align: center;
       margin-bottom: 20px;
       font-size: 1.8em;
-      border-bottom: 1px solid #1d283a;
+      border-bottom: 1px solid #444444;
       padding-bottom: 10px;
     }
     /* Slider Container */
     .slider-container {
-      background-color: #0d1120;
-      border: 1px solid #1d283a;
+      background-color: #1a1a1a;
+      border: 1px solid #333333;
       border-radius: 8px;
       padding: 15px;
       margin-bottom: 20px;
@@ -206,7 +206,7 @@
       font-weight: bold;
     }
     .value-display {
-      background-color: #0d1120;
+      background-color: #1a1a1a;
       padding: 2px 6px;
       border-radius: 4px;
       font-weight: normal;
@@ -215,17 +215,18 @@
     input[type="number"] {
       width: 100%;
       padding: 10px;
-      border: 1px solid #1d283a;
+      border: 1px solid #333333;
       border-radius: 4px;
-      background-color: #030711;
-      color: #ffffff;
+      background-color: #111111;
+      color: #e0e0e0;
       font-size: 1em;
       margin: 10px 0;
     }
+    /* No custom slider styling: Use default appearance */
     /* Output styling */
     .output {
-      background-color: #0d1120;
-      border: 1px solid #1d283a;
+      background-color: #1a1a1a;
+      border: 1px solid #333333;
       border-radius: 8px;
       padding: 15px;
       margin-bottom: 20px;
@@ -233,32 +234,25 @@
       transition: background-color 0.3s ease;
     }
     .output:hover {
-      background-color: #131827;
+      background-color: #222222;
     }
-    /* Responsive behavior for desktop (default) is maintained */
-    
     /* Mobile-Specific Overrides */
     @media (max-width: 768px) {
-      /* Upper section becomes a single column */
       .upper-section {
         flex-direction: column;
       }
-      /* Assets and Deployment cards become full width */
       .assets-column, .deployment-column {
         width: 100%;
       }
-      /* Adjust Price Cards to fill more width on mobile */
       .price-card {
         width: 90%;
         margin: 0 auto;
       }
-      /* For price movement (square) blocks, set width to 90% and adjust height automatically */
       .price-movement-card {
         width: 90%;
         height: auto;
         padding: 15px;
       }
-      /* Increase font sizes slightly for easier mobile reading */
       h1 {
         font-size: 2.4em;
       }
@@ -268,11 +262,9 @@
       h3 {
         font-size: 1.3em;
       }
-      /* Reduce gaps for a more compact mobile layout */
       .price-cards, .price-movement-cards, .upper-section {
         gap: 10px;
       }
-      /* Slider and output containers adjustments */
       .slider-container, .output, .card {
         padding: 10px;
       }
@@ -374,7 +366,8 @@
                 <span class="tooltiptext">Adjust the ETH price used for deployment calculations.</span>
               </span>
             </label>
-            <input type="range" id="ethPrice" min="2000" max="8000" step="50" value="4000" oninput="calculateDeployment()" />
+            <!-- Updated slider: min = 50, max = 25000, step = 50 -->
+            <input type="range" id="ethPrice" min="50" max="25000" step="50" value="4000" oninput="calculateDeployment()" />
           </div>
           <!-- On-Chain ETH Deploy Percentage Slider -->
           <div class="slider-container">
